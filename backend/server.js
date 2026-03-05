@@ -7,6 +7,8 @@ require("dotenv").config();
 
 const Movie = require("./models/Movie");
 
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
+
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
 const API_KEY = process.env.OMDB_API_KEY || "bcb77568";
@@ -15,7 +17,11 @@ const MONGO_URL = process.env.MONGO_URL;
 
 const sentiment = new Sentiment();
 
-app.use(cors());
+app.use(cors(
+  {
+    origin: CORS_ORIGIN
+  }
+));
 app.use(express.json());
 
 // ─── MongoDB Connection ──────────────────────────────────────────────────────
